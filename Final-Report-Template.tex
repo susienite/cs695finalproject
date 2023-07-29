@@ -105,10 +105,25 @@ This section summarizes existing solutions to the problem or similar problems. P
 This section elaborates your solution to the problem.
 
 \subsection{Description of Dataset}
-This subsection describes the dataset that you will use. In addition to the source of the dataset, it is also expected to include discussions on data proprocessing, e.g.,  statistical properties or visualization of the raw data, observation of some issues with the data (e.g., missing features, irrelevant features, outliers, etc.), some feature engineering to fix the problems (e.g., filling missing data, encoding of strings or characters into numerical values, normalization, and other operations as appropriate).
+(Delete this sentence later)  this subsection is very important. It shall not only describe the source of dataset, but also provide some insights into the data, e.g., visualization of the dataset. More importantly, you are expected to explain how you pre-process the data in this subsection.
+The Breast Cancer Wisconsin dataset is sourced from kaggle.com. It contains 569 samples: 357 benign and 212 malignant samples. Each sample is identified by an ID number and categorized as either M for malignant or B for benign. Ten real-valued features are computed for each cell nucleus/ sample: 
+\begin{itemize}
+	\item Radius (mean of distances from center to points on the perimeter
+ 	\item Texture (standard deviation of gray scale values)
+  	\item Perimeter
+   	\item Area
+    	\item Smoothness (local variation in radius lengths)
+     	\item Compactness (perimeter^2 / area - 1.0)
+      	\item Concavity (severity of concave portions of the contour)
+       	\item Concave Points (number of concave portions of the contour)
+	\item Symmetry
+ 	\item Fractal Dimension ("coastline approximation" - 1)
+\end{itemize}
+As mentioned above, for each of the 10 feature above, the mean, standard error, and worst is calculated, totaling to 32 columns. Before applying machine learning algorithms to process this dataset and see how accurate each machine learning algorithm is at classifying a sample as benign or malignant, we first pre-processed the data. We read the csv file and got rid of the last column "Unnamed:32". We checked for NaN values, which apart for "Unnamed:32" column, this dataset did not have. After ensuring that the dataset contains only non-null values, we got rid of id column and separated the data into x (everything but diagnosis) and y(diagnosis). The data was then ready to be processed by our machine learning algorithms.
 
 \subsection{Machine Learning Algorithms}
-This subsection describes machine learning algorithms that you plan to use. For each ML algorithm, briefly 1) explain why it might be appropriate for the problem and 2) describe your main design. For example, if it is neural network, provide the network structure and your initial choice of some key parameters (e.g., activation function to use, number of layers, number of hidden nodes of each layer). You may change the parameters during the training process.  
+(delete later) This subsection describes machine learning algorithms that you plan to use. For each ML algorithm, briefly 1) explain why it might be appropriate for the problem and 2) describe your main design. For example, if it is neural network, provide the network structure and your initial choice of some key parameters (e.g., activation function to use, number of layers, number of hidden nodes of each layer). You may change the parameters during the training process.  
+
 
 \subsection{Implementation Details}
 This subsection describes details of your implementation. Please focus on how you test and validate the performance, tune the hyperparameters, and select the best-performing models. Elaborate on techniques that you apply to improve the performance and explain why you use these techniques. You include few most important results/figures to illustrate your idea but do not let figures/tables dominate the content of the report. You can include few lines of critical code if needed. But please avoid paste lengthy code in your report. Please make sure the figures/tables/code snapshots are of appropriate size including the font size.
