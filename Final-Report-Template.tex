@@ -47,24 +47,25 @@
 
 
 
-\title{Replace with Your Project Title}
+\title{Breast Cancer Wisconsin Dataset:\\ 
+Application and Results of 6 Different Classification Algorithms}
 
-\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
+\author{\IEEEauthorblockN{Sarah DeCelie}
+\IEEEauthorblockA{\textit{Applied Machine Learning} \\
+\textit{Stevens Institute of Technology}\\
+Hoboken, USA \\
+sdecelie1@stevens.edu}
+\and
+\IEEEauthorblockN{David Ogbonna}
+\IEEEauthorblockA{\textit{Applied Machine Learning} \\
+\textit{Stevens Institute of Technology}\\
+Hoboken, USA \\
 email address}
 \and
-\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address}
-\and
-\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
+\IEEEauthorblockN{Susan Tan}
+\IEEEauthorblockA{\textit{Applied Machine Learning} \\
+\textit{Stevens Institute of Technology}\\
+Hoboken, USA \\
 email address}
 }
 
@@ -72,10 +73,29 @@ email address}
 
 
 \begin{abstract}
-Here is ONE short paragraph summarizing your project including the problem statement, ML algorithms you use to solve the problem, experimental results, and major contribution of this work (e.g., advantages over existing solutions if any).
+One in 8 women in the United States is diagnosed with Breast Cancer. It has thus become pivotal in the field of healthcare to predict whether a cancer call is harmful as early as possible in order to treat patients sooner and save their lives. The Breast Cancer dataset, composed of 569 samples from Wisconsin, includes features of a breast cancer mass such as area, radius, texture, and whether the samples are malignant or benign. In this paper, we apply six different classification algorithms - Decision Tree Learning, Random Forest, SVM, kNN, Logistic Regression, and Naive Bayes - and compare their results to determine which performs the best finding a model that separates the malignant and benign samples.
 \end{abstract}
 
 \section{Introduction}
+According to BreastCancer.org, breast cancer is the most common cancer across the globe, accounting for roughly 12.5\% of all new cancer cases worldwide. This is reflected within the United States, where an estimated 30\% of newly diagnosed cancers in women will be breast cancer (2023, para. 1). It is no secret how lethal this cancer can be, and how critical it is to be able to detect it early in order to begin treatment and save patients' lives. Of course, genetics plays a role, which is why when one woman in a family is diagnosed with breast cancer, doctors will urge others that are closely related to her to get tested as well. However, the majority of breast cancer cases occur in women with no prior family history of breast cancer - about 85\% specifically (BreastCancer.org, 2023, para. 1). With such a high incidence of mutations resulting from aging and other life processes, it becomes evident that relying solely on the diagnoses of other women in the family is not a perfect strategy. We must become better at detecting harmful breast cancer cells before they spread into the rest of the body.
+
+For this study, we intend to apply six different classification algorithms to a dataset created by the University of Wisconsin, whose researchers took grayscale images of 569 different breast cancer cell's nuclei. This dataset consists of several features of each nucleus, and whether the cell is diagnosed malignant (M) or benign (B). Of these 569 samples, 357 were diagnosed benign, and 212 malignant. For each of these 10 features, the mean, standard error, and "worst" (mean of the three largest values) is calculated, totaling to 32 columns including the sample's unique ID and diagnosis. These ten features include the nucleus':
+
+\begin{itemize}
+	\item Radius (mean of distances from center to points on the perimeter
+ 	\item Texture (standard deviation of gray scale values)
+  	\item Perimeter
+   	\item Area
+    	\item Smoothness (local variation in radius lengths)
+     	\item Compactness (perimeter^2 / area - 1.0)
+      	\item Concavity (severity of concave portions of the contour)
+       	\item Concave Points (number of concave portions of the contour)
+	\item Symmetry
+ 	\item Fractal Dimension ("coastline approximation" - 1)
+\end{itemize}
+
+The six algorithms that will be applied to this dataset include: Decision Trees, Random Forest, k-Neural Networks (kNN), Logistic Regression, Support Vector Machines (SVM), and Naive Bayes Classifier. 
+
 The section includes SEVERAL paragraphs summarizing your project. It is like the extended version of Abstract - you may use one paragraph for each of these parts - problem statement, dataset description, machine learning algorithms you will use to solve the problem, experimental results, and how your solutions are better as compared to existing solutions. Please try to limit Introduction to one page.
 
 \section{Related Work}
