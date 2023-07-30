@@ -91,7 +91,6 @@ Another study, \textit{Diagnosis of Breast Cancer Using Random Forests}, also us
 The first study noted the fact that the use of one dataset, centering around breast cancer cells only, is a potential limitation. The second study added that the Wisconsin Breast Cancer dataset consists of calculations made from images taken of the cancerous cells' nuclei, and that developments in image processing may improve the performance of the algorithms with more accurate data. These drawbacks of using this dataset should be kept in mind, and the potential impacts on the results obtained later in this study will be discussed further.
 
 \section{Our Solution}
-This section elaborates your solution to the problem.
 
 \subsection{Description of Dataset}
 The Breast Cancer Wisconsin dataset is sourced from kaggle.com. It contains 569 samples: 357 benign and 212 malignant samples. Each sample is identified by an ID number and categorized as either M for malignant or B for benign. Ten real-valued features are computed for each cell nucleus/ sample: 
@@ -108,6 +107,90 @@ The Breast Cancer Wisconsin dataset is sourced from kaggle.com. It contains 569 
  	\item Fractal Dimension ("coastline approximation" - 1)
 \end{itemize}
 For each of the 10 feature above, the mean, standard error, and worst is calculated, totaling to 32 columns. Before applying machine learning algorithms to process this dataset and see how accurate each machine learning algorithm is at classifying a sample as benign or malignant, we first pre-processed the data. We read the csv file and got rid of the last column "Unnamed:32". We checked for NaN values, which apart for "Unnamed:32" column, this dataset did not have. After ensuring that the dataset contains only non-null values, we got rid of id column and separated the data into x (everything but diagnosis) and y(diagnosis). The data was then ready to be processed by our machine learning algorithms.
+
+\begin{table}[ht]
+    \centering
+    \caption{\\Summary Statistics for Feature Means}
+    $\begin{array}{ccc}
+         \hline
+         & Mean & Standard Deviation\\
+         \hline
+         Radius & 14.13 & 3.52\\
+         \hline
+         Texture & 19.29 & 4.30\\
+         \hline
+         Perimeter & 91.97 & 24.29\\
+         \hline
+         Area & 654.89 & 351.91\\
+         \hline
+         Smoothness & 0.09 & 0.01\\
+         \hline
+         Compactness & 0.10 & 0.05\\
+         \hline
+         Concavity & 0.09 & 0.08\\
+         \hline
+         Concave Points & 0.05 & 0.04\\
+         \hline
+         Symmetry & 0.18 & 0.03\\
+         \hline
+         Fractal Dimension & 0.06 & 0.01\\
+         \hline
+    \end{array}$
+    
+    \caption{\\Summary Statistics for Feature Standard Errors}
+    $\begin{array}{ccc}
+         \hline
+         & Mean & Standard Deviation\\
+         \hline
+         Radius & 0.41 & 0.28\\
+         \hline
+         Texture & 1.22 & 0.55\\
+         \hline
+         Perimeter & 2.87 & 2.02\\
+         \hline
+         Area & 40.34 & 45.49\\
+         \hline
+         Smoothness & 0.01 & 0.00\\
+         \hline
+         Compactness & 0.03 & 0.02\\
+         \hline
+         Concavity & 0.03 & 0.03\\
+         \hline
+         Concave Points & 0.01 & 0.01\\
+         \hline
+         Symmetry & 0.02 & 0.01\\
+         \hline
+         Fractal Dimension & 0.00 & 0.00\\
+         \hline
+    \end{array}$
+    
+    \caption{\\Summary Statistics for Feature Worst Values}
+    $\begin{array}{ccc}
+         \hline
+         & Mean & Standard Deviation\\
+         \hline
+         Radius & 16.27 & 4.83\\
+         \hline
+         Texture & 25.68 & 6.15\\
+         \hline
+         Perimeter & 107.26 & 33.60\\
+         \hline
+         Area & 880.58 & 569.36\\
+         \hline
+         Smoothness & 0.13 & 0.02\\
+         \hline
+         Compactness & 0.25 & 0.16\\
+         \hline
+         Concavity & 0.27 & 0.21\\
+         \hline
+         Concave Points & 0.11 & 0.07\\
+         \hline
+         Symmetry & 0.29 & 0.06\\
+         \hline
+         Fractal Dimension & 0.08 & 0.02\\
+         \hline
+    \end{array}$
+\end{table}
 
 \subsection{Machine Learning Algorithms}
 (delete later) This subsection describes machine learning algorithms that you plan to use. For each ML algorithm, briefly 1) explain why it might be appropriate for the problem and 2) describe your main design. For example, if it is neural network, provide the network structure and your initial choice of some key parameters (e.g., activation function to use, number of layers, number of hidden nodes of each layer). You may change the parameters during the training process. 
