@@ -94,7 +94,6 @@ The first study noted the fact that the use of one dataset, centering around bre
 This section elaborates your solution to the problem.
 
 \subsection{Description of Dataset}
-(Delete this sentence later)  This subsection is very important. It shall not only describe the source of dataset, but also provide some insights into the data, e.g., visualization of the dataset. More importantly, you are expected to explain how you pre-process the data in this subsection.
 The Breast Cancer Wisconsin dataset is sourced from kaggle.com. It contains 569 samples: 357 benign and 212 malignant samples. Each sample is identified by an ID number and categorized as either M for malignant or B for benign. Ten real-valued features are computed for each cell nucleus/ sample: 
 \begin{itemize}
 	\item Radius (mean of distances from center to points on the perimeter
@@ -108,12 +107,12 @@ The Breast Cancer Wisconsin dataset is sourced from kaggle.com. It contains 569 
 	\item Symmetry
  	\item Fractal Dimension ("coastline approximation" - 1)
 \end{itemize}
-As mentioned above, for each of the 10 feature above, the mean, standard error, and worst is calculated, totaling to 32 columns. Before applying machine learning algorithms to process this dataset and see how accurate each machine learning algorithm is at classifying a sample as benign or malignant, we first pre-processed the data. We read the csv file and got rid of the last column "Unnamed:32". We checked for NaN values, which apart for "Unnamed:32" column, this dataset did not have. After ensuring that the dataset contains only non-null values, we got rid of id column and separated the data into x (everything but diagnosis) and y(diagnosis). The data was then ready to be processed by our machine learning algorithms.
+For each of the 10 feature above, the mean, standard error, and worst is calculated, totaling to 32 columns. Before applying machine learning algorithms to process this dataset and see how accurate each machine learning algorithm is at classifying a sample as benign or malignant, we first pre-processed the data. We read the csv file and got rid of the last column "Unnamed:32". We checked for NaN values, which apart for "Unnamed:32" column, this dataset did not have. After ensuring that the dataset contains only non-null values, we got rid of id column and separated the data into x (everything but diagnosis) and y(diagnosis). The data was then ready to be processed by our machine learning algorithms.
 
 \subsection{Machine Learning Algorithms}
 (delete later) This subsection describes machine learning algorithms that you plan to use. For each ML algorithm, briefly 1) explain why it might be appropriate for the problem and 2) describe your main design. For example, if it is neural network, provide the network structure and your initial choice of some key parameters (e.g., activation function to use, number of layers, number of hidden nodes of each layer). You may change the parameters during the training process. 
 The six machine learning algorithms applied to the Breast Cancer Wisconsin Dataset are Decision Tree, Random Forest, k-Neural Network (kNN), Logistic Regression, Support Vector Machine (SVM), and Naive Bayes Classifier. In this section, we will explain each algorithm and debrief why we chose these six. 
-1) Decision Tree :   (each of us add here)
+1) Decision Tree :   
 2) Random Forest :
 3) k-Nearest Neighbors :
 4) Logistic Regression :
@@ -137,7 +136,7 @@ In this section, we will describe how we implemented the 6 machine learning algo
 	To test if this was the optimal performance by the SVC model, this performance was tested against using GridSearchCV() to find optimal values for the SVM parameters - C, gamma, and kernel function. The popular kernel function "rbf" or radial basis function was one of the GridSearchCV() parameters. This kernel function is good for models that are linearly inseparable or non-linear. The C value in SVM is the penalty parameter. A smaller C results in wider margin but more misclassified examples. A larger C results in smaller margin and less misclassified examples, but more overfitting. Gamma is the inverse of radius of influence. Gamma is also another SVM parameter added to GridSearchCV(). If gamma is too smaell, the model does not copture the shape of data. After applying GridSearchCV to a range of values for C and gamma, as well as using the popular kernel function "rbf", the optimal values of C and gamma were 10 and 1 respectively. 
 	The optimal values for the parameters found through GridSearchCV() was then applied to the SVC() model. This new model was used to fit the training data and predict the test data. The performance of the SVC model with C of 10 and gamma of 1 once again had a precision of 0.99 for predicting benign samples and 0.98 for predicting malignant samples. This result was the same as using the default values for SVC(). 
 
-    \item Naive Bayes : 
+    \item Naive Bayes : (To be implemented after mid-stage report)
 \end{enumerate}
 
 
