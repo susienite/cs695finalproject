@@ -112,8 +112,8 @@ For each of the 10 feature above, the mean, standard error, and worst is calcula
 \subsection{Machine Learning Algorithms}
 (delete later) This subsection describes machine learning algorithms that you plan to use. For each ML algorithm, briefly 1) explain why it might be appropriate for the problem and 2) describe your main design. For example, if it is neural network, provide the network structure and your initial choice of some key parameters (e.g., activation function to use, number of layers, number of hidden nodes of each layer). You may change the parameters during the training process. 
 The six machine learning algorithms applied to the Breast Cancer Wisconsin Dataset are Decision Tree, Random Forest, k-Neural Network (kNN), Logistic Regression, Support Vector Machine (SVM), and Naive Bayes Classifier. In this section, we will explain each algorithm and debrief why we chose these six. 
-1) Decision Tree :   
-2) Random Forest :
+1) Decision Tree : A Decision Tree is a non-parametric supervised learning algorithm that is used for both classification and regression tasks. It has a hierarchical, tree structure consisting of a root node, branches, internal nodes, and leaf nodes. Given an input sample, the root conducts evaluations using the given features, then decides which branch to move to next. The same thing happens in the following layer, whichever internal (decision) node the sample is moved to, until a leaf node is eventually reached with the final output decision. 
+2) Random Forest : This is a common machine learning algorithm that combines the otuput of multiple decision trees to reach a single result. This is an ensemble learning method, which is made up of a set of classifiers (in this case, decision trees) and their predictions are aggregated to identify the most popular result. Single decision trees can be prone to problems such as bias and overfitting, so utilizing multiple decision trees to form an ensemble leads to more accurate results, especially when the trees are uncorrelated with each other.
 3) k-Nearest Neighbors :
 4) Logistic Regression :
 5) Support Vector Machine : SVM aims to find the optimal hyperplanes that would separate two classes of data. The two classes in our problem are benign and malignant samples. Benign and malignant samples may be separable by their features such as area of mass, perimeter, and more. Hence, the SVM algorithm is a good choice for this problem set. The SVM algorithm models f(x) as \(f(x) = w^T*x + b\) and minimize or maximize the Lagrangian function to find the hyperplanes. The Lagrangian function is \(max L_D = \sum_{i=1}^{\l}a_i - 1/2\sum_{i=1}^{\l}\sum_{j=1}^{\l}a_i a_j y_i y_j(x_i^T \cdot x_j)\). A kernel function can be added in front of the dot product of the x if the classification problem is not linear. 
@@ -124,13 +124,17 @@ This subsection describes details of your implementation. Please focus on how yo
 In this section, we will describe how we implemented the 6 machine learning algorithms above. We will describe their performance and how we fine tuned their hyperparamters to get the best performance. 
 
 \begin{enumerate}
-    \item Decision Tree :
+    \item Decision Tree : The Decision Tree was implemented using the tree package of python's sklearn library. Decision Trees are not sensitive to outliers or normalization, so these techniques were not applied to the dataset. The ID column was dropped, as it would not be helpful for the algorithm. The raw data was imported from a .data file through the python library panda's .read_csv function, then the ID column was dropped as it would not aid the algorithm. Then the feature columns and target column (diagnosis) were separated, and then were further divided into an 80\% training and 20\% testing split.
+    The Decision Tree was first trained with a min_samples_split parameter of 10. The testing accuracy of this tree was about 93.86\%, and the full tree is as shown below:
+    [insert image here]
+    The next step was to prune the tree. Using the GridSearchCV method, it was determined that the optimal values for max_leaf_nodes and min_samples_split were 46 and 5, respectively. The pruned tree then had a slightly improved accuracy of 94.74\%, and appeared as so:
+    [insert image here]
 
-    \item Random Forest :
+    \item Random Forest : (to be implemented after mid-stage report)
 
     \item Logistic Regression : 
 
-    \item k-Nearest Neighbors :
+    \item k-Nearest Neighbors : (to be implemented after mid-stage report)
 
     \item Support Vector Machine : To implement support vector machine, the package svm was imported from python sklearn library. The function Support Vector Classifier SVC() was used as the model for fitting the training data (0.8 of dataset) and predicting the test data (0.2 of dataset). This model's performance was evaluated by printing the accuracy score, confusion matrix, and report. Using the SVC() model with its default parameters, the accuracy score was 0.98, the precision of predicting benign samples was 0.99, and the precision of predicting malignant samples was 0.98. There was only 1 FP for benign and 1 FN for malignant. 
 	To test if this was the optimal performance by the SVC model, this performance was tested against using GridSearchCV() to find optimal values for the SVM parameters - C, gamma, and kernel function. The popular kernel function "rbf" or radial basis function was one of the GridSearchCV() parameters. This kernel function is good for models that are linearly inseparable or non-linear. The C value in SVM is the penalty parameter. A smaller C results in wider margin but more misclassified examples. A larger C results in smaller margin and less misclassified examples, but more overfitting. Gamma is the inverse of radius of influence. Gamma is also another SVM parameter added to GridSearchCV(). If gamma is too smaell, the model does not copture the shape of data. After applying GridSearchCV to a range of values for C and gamma, as well as using the popular kernel function "rbf", the optimal values of C and gamma were 10 and 1 respectively. 
