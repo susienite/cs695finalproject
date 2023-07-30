@@ -124,11 +124,10 @@ This subsection describes details of your implementation. Please focus on how yo
 In this section, we will describe how we implemented the 6 machine learning algorithms above. We will describe their performance and how we fine tuned their hyperparamters to get the best performance. 
 
 \begin{enumerate}
-    \item Decision Tree : The Decision Tree was implemented using the tree package of python's sklearn library. Decision Trees are not sensitive to outliers or normalization, so these techniques were not applied to the dataset. The ID column was dropped, as it would not be helpful for the algorithm. The raw data was imported from a .data file through the python library panda's .read_csv function, then the ID column was dropped as it would not aid the algorithm. Then the feature columns and target column (diagnosis) were separated, and then were further divided into an 80\% training and 20\% testing split.
-    The Decision Tree was first trained with a min_samples_split parameter of 10. The testing accuracy of this tree was about 93.86\%, and the full tree is as shown below:
-    [insert image here]
-    The next step was to prune the tree. Using the GridSearchCV method, it was determined that the optimal values for max_leaf_nodes and min_samples_split were 46 and 5, respectively. The pruned tree then had a slightly improved accuracy of 94.74\%, and appeared as so:
-    [insert image here]
+     \item Decision Tree : The Decision Tree was implemented using the tree package of python's sklearn library. Decision Trees are not sensitive to outliers or normalization, so these techniques were not applied to the dataset. The ID column was dropped, as it would not be helpful for the algorithm. The ID column was dropped as it would not aid the algorithm. Then the feature columns and target column (diagnosis) were separated, and then were further divided into an 80\% training and 20\% testing split.
+    The Decision Tree was first trained with a minimum samples split parameter of 10, and utilized the default Gini impurity criterion. The testing accuracy of this tree was about 95.61\%. The tree consisted included a root node dependent on the sample's mean concavity, 6 layers of internal nodes (14 decision nodes in total), and 16 leaf nodes.
+    
+    The next step was to prune the tree. Using the GridSearchCV method, it was determined that the optimal values for maximum leaf nodes and minimum samples split were 15 and 3, respectively. The pruned tree then had an accuracy of 96.49\%, slightly improved from the original tree. This one consisted of a root dependent upon the sample's worst perimeter value, 5 layers of internal nodes (13 decision nodes total), and 15 leaf nodes.
 
     \item Random Forest : (to be implemented after mid-stage report)
 
