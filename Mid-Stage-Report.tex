@@ -195,7 +195,6 @@ The tables to the right include summary statistics for each of the features, sep
 \end{table}
 
 \subsection{Machine Learning Algorithms}
-(delete later) This subsection describes machine learning algorithms that you plan to use. For each ML algorithm, briefly 1) explain why it might be appropriate for the problem and 2) describe your main design. For example, if it is neural network, provide the network structure and your initial choice of some key parameters (e.g., activation function to use, number of layers, number of hidden nodes of each layer). You may change the parameters during the training process. 
 The six machine learning algorithms applied to the Breast Cancer Wisconsin Dataset are Decision Tree, Random Forest, k-Neural Network (kNN), Logistic Regression, Support Vector Machine (SVM), and Naive Bayes Classifier. In this section, we will explain each algorithm and debrief why we chose these six. 
 1) Decision Tree : A Decision Tree is a non-parametric supervised learning algorithm that is used for both classification and regression tasks. It has a hierarchical, tree structure consisting of a root node, branches, internal nodes, and leaf nodes. Given an input sample, the root conducts evaluations using the given features, then decides which branch to move to next. The same thing happens in the following layer, whichever internal (decision) node the sample is moved to, until a leaf node is eventually reached with the final output decision. 
 2) Random Forest : This is a common machine learning algorithm that combines the otuput of multiple decision trees to reach a single result. This is an ensemble learning method, which is made up of a set of classifiers (in this case, decision trees) and their predictions are aggregated to identify the most popular result. Single decision trees can be prone to problems such as bias and overfitting, so utilizing multiple decision trees to form an ensemble leads to more accurate results, especially when the trees are uncorrelated with each other.
@@ -205,7 +204,6 @@ The six machine learning algorithms applied to the Breast Cancer Wisconsin Datas
 6) Naive Bayes : Naive Bayes finds the probability of a hypothesis (yes or no) by computing the probability of the set of attributes given the hypothesis. Naive Bayes assumes that the vector of attributes are independent of each other. In this problem set, the hypotheses are benign or malignant and the vector of attributes are the variations of the 10 features. Hence, Naive Bayes can be applied to predict whether the output is benign or malignant given the set of attributes. The Naive Bayes Classifier is $(c_{NB} = argmax_cj\Delta P(c_j) \prod_i P(a_i |C_j))$. 
 
 \subsection{Implementation Details}
-This subsection describes details of your implementation. Please focus on how you test and validate the performance, tune the hyperparameters, and select the best-performing models. Elaborate on techniques that you apply to improve the performance and explain why you use these techniques. You include few most important results/figures to illustrate your idea but do not let figures/tables dominate the content of the report. You can include few lines of critical code if needed. But please avoid paste lengthy code in your report. Please make sure the figures/tables/code snapshots are of appropriate size including the font size.
 In this section, we will describe how we implemented the 6 machine learning algorithms above. We will describe their performance and how we fine tuned their hyperparamters to get the best performance. 
 
 \begin{enumerate}
@@ -227,19 +225,6 @@ In this section, we will describe how we implemented the 6 machine learning algo
     \item Naive Bayes : (To be implemented after mid-stage report)
 \end{enumerate}
 
-
-
-\section{Comparison}  
-This section includes the following: 1) comparing the performance of different machine learning algorithms that you used, and 2) comparing the performance of your algorithms with existing solutions if any. Please provide insights to reason about why this algorithm is better/worse than another one.
-
-\section{Future Directions}
-This section lays out some potential directions for further improving the performance. You can image what you may do if you were given extra 3-6 months.
-
-\section{Conclusion}
-This section summarizes this project, i.e., by the extensive experiments and analysis, do you think the problem is solved well? which algorithm(s) might be better suitable for this problem? Which technique(s) may help further improve the performance? \\
-
-Last but not the least, don't forget to include references to any work you mentioned in the report.
-  
 
 \bibliographystyle{IEEEtran}
 \bibliography{Latext-Template/bib}
