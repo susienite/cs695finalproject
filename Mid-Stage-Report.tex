@@ -197,10 +197,22 @@ The tables to the right include summary statistics for each of the features, sep
 \subsection{Machine Learning Algorithms}
 The six machine learning algorithms applied to the Breast Cancer Wisconsin Dataset are Decision Tree, Random Forest, k-Neural Network (kNN), Logistic Regression, Support Vector Machine (SVM), and Naive Bayes Classifier. In this section, we will explain each algorithm and debrief why we chose these six. 
 1) Decision Tree : A Decision Tree is a non-parametric supervised learning algorithm that is used for both classification and regression tasks. It has a hierarchical, tree structure consisting of a root node, branches, internal nodes, and leaf nodes. Given an input sample, the root conducts evaluations using the given features, then decides which branch to move to next. The same thing happens in the following layer, whichever internal (decision) node the sample is moved to, until a leaf node is eventually reached with the final output decision. 
-2) Random Forest : This is a common machine learning algorithm that combines the otuput of multiple decision trees to reach a single result. This is an ensemble learning method, which is made up of a set of classifiers (in this case, decision trees) and their predictions are aggregated to identify the most popular result. Single decision trees can be prone to problems such as bias and overfitting, so utilizing multiple decision trees to form an ensemble leads to more accurate results, especially when the trees are uncorrelated with each other.
-3) k-Nearest Neighbors : is a machine leawrning algorithm that is used for classification and regression tasks. It is an algorithm that does not make any assumptions about the underlying data distribution. This algorithm is useful for this data because for the samples that are on the board of benign and malignant. It will compare to the in order to make a prediction. It will utilize the distance metric and then use the labels of those neighbors to determine the label of the new data point. 
-4) Logistic Regression : This algorithm aims to find if a diagnosis is benign or malignant based on the raidus given. So depending on that input value it will either be benign or malignant.
-5) Support Vector Machine : SVM aims to find the optimal hyperplanes that would separate two classes of data. The two classes in our problem are benign and malignant samples. Benign and malignant samples may be separable by their features such as area of mass, perimeter, and more. Hence, the SVM algorithm is a good choice for this problem set. The SVM algorithm models f(x) as \(f(x) = w^T*x + b\) and minimize or maximize the Lagrangian function to find the hyperplanes. The Lagrangian function is \(max L_D = \sum_{i=1}^{\l}a_i - 1/2\sum_{i=1}^{\l}\sum_{j=1}^{\l}a_i a_j y_i y_j(x_i^T \cdot x_j)\). A kernel function can be added in front of the dot product of the x if the classification problem is not linear. 
+2) Random Forest : This is a common machine learning algorithm that combines the output of multiple decision trees to reach a single result. This is an ensemble learning method, which is made up of a set of classifiers (in this case, decision trees) and their predictions are aggregated to identify the most popular result. Single decision trees can be prone to problems such as bias and overfitting, so utilizing multiple decision trees to form an ensemble leads to more accurate results, especially when the trees are uncorrelated with each other.
+3) k-Nearest Neighbors : kNN is a supervised learning classifier. It utilizes proximity to make classifications, or predictions about the grouping of an individual sample. Essentially, the algorithm looks at clusters, or data points that are 'close' to one another in value, and looks at their class labels. The overall labeling of the cluster will be dependent on the majority 'vote' (i.e. if most samples in a cluster are malignant, the cluster is labeled malignant). Samples that are then fed into the model after its training are then assessed on which cluster they are closest to, and the label of that cluster is assigned to that input sample.
+4) Logistic Regression : This is a type of statistical model often used for classification, as well as predictive analysis. From a given dataset, logistic regression estimates the probability of an event occurring. In this case, the two possible events are a given sample being malignant or benign. In this algorithm, a logit transformation is applied to the odds (i.e. the probability of 'success' divided by the probability of 'failure'), also known as log odds or the natural logarithm of odds. The logistic function is represented by the following formulas:
+
+\begin{center}
+    $\operatorname{Logit}(\pi) = \frac{1}{1+e^{-\pi}}$\\
+    $\operatorname{ln}(\frac{\pi}{1-\pi}) = \beta_0 + \beta_1*X_1 + ... + \beta_k*X_k$
+\end{center}
+
+Here, logit(pi) is the dependent variable, and X is the independent (each $X_k$ is a different feature). Each beta parameter (coefficient) is usually estimated through maximum likelihood estimation (MLE), which tests different values of beta through multiple iterations, optimizing for the best fit of log odds. Once optimal values are obtained, the resulting formula is intended to calculate and output a given sample's diagnosis.
+
+5) Support Vector Machine : SVM aims to find the optimal hyperplanes that would separate two classes of data. The two classes in our problem are benign and malignant samples. Benign and malignant samples may be separable by their features such as area of mass, perimeter, and more. Hence, the SVM algorithm is a good choice for this problem set. The SVM algorithm models f(x) as \(f(x) = w^T*x + b\) and minimize or maximize the Lagrangian function to find the hyperplanes. The Lagrangian function is:
+\begin{center}
+    \(max L_D = \sum_{i=1}^{\l}a_i - 1/2\sum_{i=1}^{\l}\sum_{j=1}^{\l}a_i a_j y_i y_j(x_i^T \cdot x_j)\)
+\end{center}
+A kernel function can be added in front of the dot product of the x if the classification problem is not linear. 
 6) Naive Bayes : Naive Bayes finds the probability of a hypothesis (yes or no) by computing the probability of the set of attributes given the hypothesis. Naive Bayes assumes that the vector of attributes are independent of each other. In this problem set, the hypotheses are benign or malignant and the vector of attributes are the variations of the 10 features. Hence, Naive Bayes can be applied to predict whether the output is benign or malignant given the set of attributes. The Naive Bayes Classifier is $(c_{NB} = argmax_cj\Delta P(c_j) \prod_i P(a_i |C_j))$. 
 
 \subsection{Implementation Details}
@@ -214,8 +226,8 @@ In this section, we will describe how we implemented the 6 machine learning algo
 
     \item Random Forest : (to be implemented after mid-stage report)
 
-    \item Logistic Regression : this is a machine learning algorithm which uses binary classification tasks. In this particular instance it is predicting the probability if a diagnose is benign or malignant. This is able to happen by the use of Logistic function to the training data. which will map the input features. Which are the columns 'diagnosis'. The activation function was the sigmoid function which maped any real value between 0 and 1. The use of the "X_train" and "y_train" was for the training data and labels. 'X_test" represented the test data. What was also used was the '.fit' method which was used to train the logistic regression model, and 'predict' method was used to predict was used to make predictions on the new data. 
-
+    \item Logistic Regression : The activation function utilized for the logistic regression was the sigmoid function, which mapped any real value between 0 and 1. The '.fit' method was used to train the logistic regression model, and the 'predict' method was used to make predictions on the new data. The accuracy of the model was about 96.5\% overall. Other statistics for benign (B) and malignant (M) samples in the testing data from the confusion matrix are in the Table 4 on the last page. Table 5 includes the coefficients and intercept calculated by the algorithm.
+    
     \item k-Nearest Neighbors : (to be implemented after mid-stage report)
 
     \item Support Vector Machine : To implement support vector machine, the package svm was imported from python sklearn library. The function Support Vector Classifier SVC() was used as the model for fitting the training data (0.8 of dataset) and predicting the test data (0.2 of dataset). This model's performance was evaluated by printing the accuracy score, confusion matrix, and report. Using the SVC() model with its default parameters, the accuracy score was 0.98, the precision of predicting benign samples was 0.99, and the precision of predicting malignant samples was 0.98. There was only 1 FP for benign and 1 FN for malignant. 
@@ -229,5 +241,83 @@ In this section, we will describe how we implemented the 6 machine learning algo
 \bibliographystyle{IEEEtran}
 \bibliography{Latext-Template/bib}
 
+\begin{table}[]
+        \centering
+        \caption{Classification Report for Testing Data}
+        \begin{tabular}{|c|c|c|c|}
+             \hline
+             & Precision & Recall & F1-Score\\
+             \hline
+             B & 96\% & 99\% & 97\%\\
+             \hline
+             M & 98\% & 93\% & 95\%\\
+             \hline
+        \end{tabular}
+
+       \caption{Intercept and Coefficients for Each Feature}
+        \begin{tabular}{|c|c|}
+             \hline
+             Mean Radius & -1.91\\
+             \hline
+             Mean Texture & -0.47\\
+             \hline
+             Mean Perimeter & 0\\
+             \hline
+             Mean Area & 0\\
+             \hline
+             Mean Smoothness & 0.08\\
+             \hline
+             Mean Compactness & 0.35\\
+             \hline
+             Mean Concavity & 0.49\\
+             \hline
+             Mean Concave Points & 0.21\\
+             \hline
+             Mean Symmetry & 0.11\\
+             \hline
+             Mean Fractal Dimension & 0.02\\
+             \hline
+             SE Radius & -0.06\\
+             \hline
+             SE Texture & -0.89\\
+             \hline
+             SE Perimeter & -0.09\\
+             \hline
+             SE Area & 0.14\\
+             \hline
+             SE Smoothness & 0.01\\
+             \hline
+             SE Compactness & 0.07\\
+             \hline
+             SE Concavity & 0.09\\
+             \hline
+             SE Concave Points & 0.03\\
+             \hline
+             SE Symmetry & 0.03\\
+             \hline
+             SE Fractal Dimension & 0.01\\
+             \hline
+             Worst Radius & -1.99\\
+             \hline
+             Worst Texture & 0.64\\
+             \hline
+             Worst Perimeter & 0.19\\
+             \hline
+             Worst Area & 0.03\\
+             \hline
+             Worst Smoothness & 0.13\\
+             \hline
+             Worst Compactness & 1.06\\
+             \hline
+             Worst Concavity & 1.32\\
+             \hline
+             Worst Concave Points & 0.39\\
+             \hline
+             Worst Symmetry & 0.36\\
+             \hline
+             Worst Fractal Dimension & 0.09\\
+             \hline
+        \end{tabular}
+    \end{table}
 
 \end{document}
