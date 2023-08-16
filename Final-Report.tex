@@ -35,6 +35,7 @@
 {\begin{tabular}
 		{@{}#1@{}}#2\end{tabular}}
 \usepackage{setspace}
+\usepackage{placeins}
 \renewcommand{\labelitemi}{$\vcenter{\hbox{\tiny$\bullet$}}$}
 
 
@@ -73,7 +74,7 @@ stan12@stevens.edu}
 
 
 \begin{abstract}
-One in 8 women in the United States is diagnosed with Breast Cancer. It has thus become pivotal in the field of healthcare to predict whether a cancer call is harmful as early as possible to treat patients sooner and save lives. The Breast Cancer dataset is composed of 569 samples from Wisconsin and includes features of a breast cancer mass such as area, radius, texture, and whether the samples are malignant or benign. In this paper, we apply six different classification algorithms - Decision Tree Learning, Random Forest, SVM, kNN, Logistic Regression, and Naive Bayes - and compare their results to determine which performs the best finding a model that separates the benign and malignant samples.
+One in 8 women in the United States is diagnosed with Breast Cancer. It has thus become pivotal in the field of healthcare to predict whether a cancer call is harmful as early as possible in order to treat patients sooner and save lives. The Breast Cancer dataset is composed of 569 samples from Wisconsin and includes features of a breast cancer mass such as area, radius, texture, and whether the samples are malignant or benign. In this paper, we apply six different classification algorithms - Decision Tree Learning, Random Forest, SVM, kNN, Logistic Regression, and Naive Bayes - and compare their results to determine which performs the best finding a model that separates the malignant and benign samples.
 \end{abstract}
 
 \section{Introduction}
@@ -219,12 +220,37 @@ A kernel function is typically added in front of the dot product of the x to acc
 In this section, we will describe how we implemented the 6 machine learning algorithms above. We will describe their performance and how we fine tuned their hyperparamters to get the best performance. 
 
 \begin{enumerate}
-     \item Decision Tree : The Decision Tree was implemented using the tree package of python's sklearn library. Decision Trees are not sensitive to outliers or normalization, so these techniques were not applied to the dataset. The data was pre-processed as described above (see {em Description of Dataset}). Then data was then further divided into an 80\% training and 20\% testing split.
+     \item Decision Tree : The Decision Tree was implemented using the tree package of Python's sklearn library. Decision Trees are not sensitive to outliers or normalization, so these techniques were not applied to the dataset. The data was preprocessed (see {\em Decription of Dataset})  then was further divided into an 80\% training and 20\% testing split.
+     
      The Decision Tree was first trained with a minimum samples split parameter of 10, and utilized the default Gini impurity criterion. The testing accuracy of this tree was about 95.61\%. The tree consisted included a root node dependent on the sample's mean concavity, 6 layers of internal nodes (14 decision nodes in total), and 16 leaf nodes.
     
-    The next step was to prune the tree. Using the GridSearchCV method, it was determined that the optimal values for maximum leaf nodes and minimum samples split were 15 and 3, respectively. The pruned tree then had an accuracy of 96.49\%, slightly improved from the original tree. This one consisted of a root dependent upon the sample's worst perimeter value, 5 layers of internal nodes (13 decision nodes total), and 15 leaf nodes.
+     The next step was to prune the tree. Using the GridSearchCV method, it was determined that the optimal values for maximum leaf nodes and minimum samples split were 15 and 3, respectively. The pruned tree then had an accuracy of 96.49\%, slightly improved from the original tree. This one consisted of a root dependent upon the sample's worst perimeter value, 5 layers of internal nodes (13 decision nodes total), and 15 leaf nodes.
 
-    \item Random Forest : (to be implemented after mid-stage report)
+    \item Random Forest : Similar to the Decision Tree, the Random Forest algorithm was implemented using the RandomForestRegressor function from Python's sklearn library. The same preprocessing techniques were used: no normalization was applied, the features and labels were separated, and the data was split into 80\% training and 20\% testing. The main difference is that the diagnosis labels were converted into integers - 0 for Benign (B) samples, and 1 for Malignant (M) samples. This was due to the algorithm having trouble processing string labels.
+
+    The first version of the algorithm was run with the default number of trees (10) and a random state of 42. The RandomForestRegressor output a testing accuracy of about 91.2\%. Note that, since the diagnosis labels were 0s or 1s, the algorithm sometimes predicted float values between 0 and 1, or between 1 and 2. So the predicted labels were converted into integers, thereby eliminating the decimal point due to Python's functionality. 
+
+    In order to attempt to increase this accuracy, we looked at the algorithm's list of importance values for each feature, in order to perform some feature selection. Most of the features were assigned an importance value of 0, but those that were above this are displayed here:
+
+    \begin{enumerate}
+        \item Worst Concave Points = 0.28
+        \item Worst Perimeter = 0.23
+        \item Worst Area = 0.17
+        \item Worst Radius = 0.1
+        \item Mean Concave Points = 0.09
+        \item Worst Texture = 0.02
+        \item Mean Texture = 0.01
+        \item Mean Smoothness = 0.01
+        \item Mean Concavity = 0.01
+        \item SE Area = 0.01
+        \item SE Smoothness = 0.01
+        \item SE Concavity = 0.01
+        \item SE Symmetry = 0.01
+        \item SE Fractal Dimension = 0.01
+        \item Worst Concavity = 0.01
+    \end{enumerate}
+
+    By focusing only on the features whose cumulative importance adds up to 95\%, we can eliminate those that do not impact the algorithm that much, and hopefully improve its performance. Specifically, this new Random Forest will only utilize the features listed above from Worst Concave Points to SE Concavity. The testing accuracy of this new Random Forest was about 93.9\%, a slightly improved accuracy from the original iteration.
 
     \item Logistic Regression : The activation function utilized for the logistic regression was the sigmoid function, which mapped any real value between 0 and 1. The '.fit' method was used to train the logistic regression model, and the 'predict' method was used to make predictions on the new data. The accuracy of the model was about 96.5\% overall. Other statistics for benign (B) and malignant (M) samples in the testing data from the confusion matrix are in the Table 4 on the last page. Table 5 includes the coefficients and intercept calculated by the algorithm.
     
@@ -242,26 +268,36 @@ In this section, we will describe how we implemented the 6 machine learning algo
 
 \end{enumerate}
 
+%/ COMMENT: These are the remaining sections that need to be done, in addition to adding the implementation details for our 2nd algorithms.
+\section{Comparison}  
+This section includes the following: 1) comparing the performance of different machine learning algorithms that you used, and 2) comparing the performance of your algorithms with existing solutions if any. Please provide insights to reason about why this algorithm is better/worse than another one.
+
+\section{Future Directions}
+This section lays out some potential directions for further improving the performance. You can image what you may do if you were given extra 3-6 months.
+
+\section{Conclusion}
+This section summarizes this project, i.e., by the extensive experiments and analysis, do you think the problem is solved well? which algorithm(s) might be better suitable for this problem? Which technique(s) may help further improve the performance? \\
+
+Last but not the least, don't forget to include references to any work you mentioned in the report.
+
+\newpage
 
 \bibliographystyle{IEEEtran}
 \bibliography{Latext-Template/bib}
 
-\begin{table}[]
+\begin{table}[h]
         \centering
         \caption{Classification Report for Testing Data}
-        \begin{tabular}{|c|c|c|c|}
-             \hline
+        \begin{tabular}{c|c|c|c}
              & Precision & Recall & F1-Score\\
              \hline
              B & 96\% & 99\% & 97\%\\
              \hline
-             M & 98\% & 93\% & 95\%\\
-             \hline
+             M & 98\% & 93\% & 95\%
         \end{tabular}
 
-       \caption{Intercept and Coefficients for Each Feature}
-        \begin{tabular}{|c|c|}
-	     \hline
+       \caption{\\Intercept and Coefficients for Each Feature}
+        \begin{tabular}{c|c}
              Intercept & -0.37\\
              \hline
              Mean Radius & -1.91\\
@@ -322,8 +358,7 @@ In this section, we will describe how we implemented the 6 machine learning algo
              \hline
              Worst Symmetry & 0.36\\
              \hline
-             Worst Fractal Dimension & 0.09\\
-             \hline
+             Worst Fractal Dimension & 0.09
         \end{tabular}
     \end{table}
 
