@@ -256,15 +256,22 @@ In this section, we will describe how we implemented the 6 machine learning algo
     
     \item k-Nearest Neighbors : (to be implemented after mid-stage report)
 
-    \item Support Vector Machine : The Support Vector Machine was implemented using the package {\em svm} from python sklearn library. The function, Support Vector Classifier, was used as the model for fitting the training data (0.8 of dataset) and predicting the test data (0.2 of dataset). Using the SVC model with its default parameters, the accuracy score was 0.98, the precision of predicting benign samples was 0.99, and the precision of predicting malignant samples was 0.98. There was only 1 FP for benign and 1 FN for malignant. 
+    \item Support Vector Machine : The Support Vector Machine was implemented using the package {\em svm} from python sklearn library. The function, Support Vector Classifier, was used as the model for fitting the training data (0.8 of dataset) and predicting the test data (0.2 of dataset). Using the SVC model with its default parameters, the accuracy score was 0.98, the precision of predicting benign samples was 0.97, and the precision of predicting malignant samples was 1.00. There was only 1 FP for benign and 1 FN for malignant. 
 	
-    To test if this was the optimal performance by the SVC model, this performance was tested against using GridSearchCV to find optimal values for the SVM parameters - C, gamma, and kernel function. The C value is the penalty parameter. A smaller C results in wider margin but more misclassified examples. A larger C results in smaller margin and less misclassified examples, but more overfitting. We want a C value that does not under- nor over-fit. Gamma is a coefficient in the Kernel function (rbf, polynomial, and sigmoid) and is the inverse of the radius of influence. If gamma is too small, the model does not copture the shape of data. The Kernel function used was 'rbf' because it is the most preferrable, as it is flexible and captures shape of data. Radial basis function (rbf) is used over linear, polynomial, and others. Hence, a range of C and gamma was applied with the Kernel function 'rbf' to GridSearchCV(). 
+    To test if this was the optimal performance by the SVC model, this performance was tested against using GridSearchCV to find optimal values for the SVM parameters - C, gamma, and kernel function. The C value is the penalty parameter. A smaller C results in wider margin but more misclassified examples. A larger C results in smaller margin and less misclassified examples, but more overfitting. We want a C value that does not under- nor over-fit. Gamma is a coefficient in the Kernel function (rbf, polynomial, and sigmoid) and is the inverse of the radius of influence. 
+    If gamma is too small, the model does not copture the shape of data. The kernel function inputed were 'rbf', 'poly', 'sigmoid', and 'linear;. Radial basis function (rbf) is oftentimes used over linear, polynomial, and others because it is more flexible and can capture the shape of data. Hence, a range of C, gamma, and kernel functions were applied to GridSearchCV(). 
 	
-    The optimal values for the parameters found through GridSearchCV were 10 for C, 1 for gamma, and 'rbf' for Kernel function. This new model was used to fit the training data and predict the test data. The performance of the new SVC model had a precision of 0.99 for predicting benign samples and 0.98 for predicting malignant samples. This result was the same as using the default values for Support Vector Classifier. 
+    \begin{enumerate}
+        \item C : [0.01,0.1,1, 10, 100, 1000]
+        \item gamma : [10, 1,0.1,0.01,0.001,0.0001]
+        \item kernel : ['rbf', 'poly', 'sigmoid', 'linear']
+    \end{enumerate}
+
+    The optimal values for the parameters found through GridSearchCV were 10 for C, 0.1 for gamma, and 'rbf' for Kernel function. This new model was used to fit the training data and predict the test data. The performance of the new SVC model had a precision of 1.00 for predicting benign samples and 0.97 for predicting malignant samples. This new result was about same as using the default values for Support Vector Classifier. 
 
     \item Naive Bayes : Naive Bayes was implemented using the Gaussian Naive Bayes package from python sklearn library. The Gaussian Naive Bayes was used for its mean and variance approach for training the data. The result of using Gaussian Naive Bayes with default parameters was an accuracy score of 0.90, a precision of detecting benign cancer of 0.93 and a precision of detecting malignant cancer of 0.86.
     
-    Gaussian Naive Bayes only have 2 parameters: priors (prior probabilities) and var_smoothing (to widen or smooth the curve). The result of using GridSearchCV() and fine tuning var_smoothing is a 0.92 precision of predicting benign cancer and a 0.90 precision of predicting malignant cancer masses. The new model had the same accuracy score of 0.90 as the Naive Bayes model with default values, but better precision of predicting malignant cancer masses. 
+    Gaussian Naive Bayes only have 2 parameters: priors (prior probabilities) and var-smoothing (to widen or smooth the curve). The result of using GridSearchCV() and fine tuning var-smoothing is a 0.92 precision of predicting benign cancer and a 0.90 precision of predicting malignant cancer masses. The new model had the same accuracy score of 0.90 as the Naive Bayes model with default values, but better precision of predicting malignant cancer masses. 
 
 \end{enumerate}
 
@@ -360,6 +367,51 @@ Last but not the least, don't forget to include references to any work you menti
              \hline
              Worst Fractal Dimension & 0.09
         \end{tabular}
-    \end{table}
+
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\\Algorithm Analysis for Testing Data (Before Fine-tuning)}
+    $\begin{tabular}{c|c|c|c}
+        \hline
+        & Accuracy & Precision for Benign & Precision for Malignant &
+        \hline
+        Decision Tree & 96 & ? & ? \\
+        \hline
+        Random Forest & 91 & ? & ?\\
+        \hline
+        Logistic Regression & ? & 96 & 98 \\
+        \hline
+        k-Nearest Neighbors & ? & ? & ?\\
+        \hline
+        Support Vector Machine & 98 & 97 & 100 \\
+        \hline
+        Naive Bayes & 90 & 93 & 86\\
+    \end{tabular}$
+
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\\Algorithm Analysis for Testing Data ({\textbf After Fine-tuning})}
+    $\begin{tabular}{c|c|c|c}
+        \hline
+        & Accuracy & Precision for Benign & Precision for Malignant &
+        \hline
+        Decision Tree & 97 & ? & ? \\
+        \hline
+        Random Forest & 95 & ? & ?\\
+        \hline
+        Logistic Regression & ? & ? & ? \\
+        \hline
+        k-Nearest Neighbors & ? & ? & ?\\
+        \hline
+        Support Vector Machine & 98 & 97 & 100 \\
+        \hline
+        Naive Bayes & 90 & 92 & 90\\
+    \end{tabular}$
+
+\end{table}
 
 \end{document}
