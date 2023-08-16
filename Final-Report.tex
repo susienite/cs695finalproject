@@ -1,0 +1,330 @@
+\documentclass[conference]{IEEEtran}
+%\documentclass[sigconf]{acmart}
+\makeatletter
+\def\ps@headings{%
+\def\@oddhead{\mbox{}\scriptsize\rightmark \hfil \thepage}%
+\def\@evenhead{\scriptsize\thepage \hfil \leftmark\mbox{}}%
+\def\@oddfoot{}%
+\def\@evenfoot{}}
+\makeatother
+\pagestyle{empty}
+\usepackage{url}
+\usepackage{graphicx,subfigure}
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{epsfig}
+\newtheorem{theorem}{Theorem}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}} % Use Input in the format of Algorithm
+\renewcommand{\algorithmicensure}{\textbf{Output:}} % Use Output in the format of Algorithm
+\usepackage{amsfonts}
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{mydef}{Definition}[section]
+%\newtheorem{lemma}{Lemma}[section]
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage[underline=true]{pgf-umlsd}
+\newcommand{\tabincell}[2]
+{\begin{tabular}
+		{@{}#1@{}}#2\end{tabular}}
+\usepackage{setspace}
+\renewcommand{\labelitemi}{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+
+
+\begin{document}
+
+
+
+\title{Breast Cancer Wisconsin Dataset:\\ 
+Application and Results of 6 Different Classification Algorithms}
+
+\author{\IEEEauthorblockN{Sarah DeCelie}
+\IEEEauthorblockA{\textit{Applied Machine Learning} \\
+\textit{Stevens Institute of Technology}\\
+Hoboken, USA \\
+sdecelie1@stevens.edu}
+\and
+\IEEEauthorblockN{David Ogbonna}
+\IEEEauthorblockA{\textit{Applied Machine Learning} \\
+\textit{Stevens Institute of Technology}\\
+Hoboken, USA \\
+dogbonna@stevens.edu}
+\and
+\IEEEauthorblockN{Susan Tan}
+\IEEEauthorblockA{\textit{Applied Machine Learning} \\
+\textit{Stevens Institute of Technology}\\
+Hoboken, USA \\
+stan12@stevens.edu}
+}
+
+\maketitle
+
+
+\begin{abstract}
+One in 8 women in the United States is diagnosed with Breast Cancer. It has thus become pivotal in the field of healthcare to predict whether a cancer call is harmful as early as possible to treat patients sooner and save lives. The Breast Cancer dataset is composed of 569 samples from Wisconsin and includes features of a breast cancer mass such as area, radius, texture, and whether the samples are malignant or benign. In this paper, we apply six different classification algorithms - Decision Tree Learning, Random Forest, SVM, kNN, Logistic Regression, and Naive Bayes - and compare their results to determine which performs the best finding a model that separates the benign and malignant samples.
+\end{abstract}
+
+\section{Introduction}
+According to BreastCancer.org, breast cancer is the most common cancer across the globe, accounting for roughly 12.5\% of all new cancer cases worldwide. This is reflected within the United States, where an estimated 30\% of newly diagnosed cancers in women will be breast cancer \cite{BCorg}. It is no secret how lethal this cancer can be, and how critical it is to be able to detect it early in order to begin treatment and save patients' lives. Of course, genetics plays a role, which is why when one woman in a family is diagnosed with breast cancer, doctors will urge others that are closely related to her to get tested as well. However, the majority of breast cancer cases occur in women with no prior family history of breast cancer - about 85\% specifically \cite{BCorg}. With such a high incidence of mutations resulting from aging and other life processes, it becomes evident that relying solely on the diagnoses of other women in the family is not a perfect strategy. We must become better at detecting harmful breast cancer cells before they spread into the rest of the body.
+
+For this study, we intend to apply six different classification algorithms to a dataset created by the University of Wisconsin, whose researchers took grayscale images of 569 different breast cancer cell's nuclei. This dataset consists of several features of each nucleus, and whether the cell is diagnosed malignant (M) or benign (B). Of these 569 samples, 357 were diagnosed benign, and 212 malignant. For each of these 10 features, the mean, standard error, and "worst" (mean of the three largest values) is calculated, totaling to 32 columns including the sample's unique ID and diagnosis. 
+
+The six algorithms that will be applied to this dataset include: Decision Tree, Random Forest, k-Neural Network (kNN), Logistic Regression, Support Vector Machine (SVM), and Naive Bayes Classifier. These algorithms have been applied in previous studies, including those that used medical data, and the results have been promising. In particular, it appears the SVM and Random Forest perform the best, with kNN performing the worst, but none have testing accuracies below 90\%. Thus, there is high confidence that these algorithms will all perform very well with this dataset, further proving the viability of using machine learning to diagnose breast cancer.
+
+\section{Related Work}
+As stated previously, these algorithms have been utilized in several different previous works, including studies that focused on medical data. One such example is \textit{Machine Learning Algorithms For Breast Cancer Prediction and Diagnosis}, which actually applied 5 of the 6 algorithms that will be used in this study (SVM, Random Forest, Decision Tree, Logistic Regression, and kNN) to the same Breast Cancer Wisconsin dataset. The goals of this study were similar to this one: predict and diagnosis breast cancer using machine learning, and determine which of the selected algorithms is the most effective. Based on the resulting confusion matrix, testing accuracy and precision for each algorithm, it was observed that SVM performed the best with an accuracy of 97.2\%. Though, it should be noted that the other algorithms were not too far off, with a minimum testing accuracy of 93.7\% \cite{NAJI2021487}. These results are very promising, and raises curiosity now that Random Forests will be added to the list of tested algorithms.
+
+Another study, \textit{Diagnosis of Breast Cancer Using Random Forests}, also used the same dataset and some of the same algorithms as this study. Specifically, this study compared the accuracies of SVM, Decision Tree, Multilayer Perceptron, kNN, and Random Forest. This study actually determined that Random Forest outperforms the other algorithms, with a perfect 100\% accuracy, precision, recall, F1 score, and ROC-AUC \cite{MINNOOR2023429}. With both of these studies, kNN seemed to perform the worst, but still with a good accuracy of around 93 to 94 percent.
+
+The first study noted the fact that the use of one dataset, centering around breast cancer cells only, is a potential limitation. The second study added that the Wisconsin Breast Cancer dataset consists of calculations made from images taken of the cancerous cells' nuclei, and that developments in image processing may improve the performance of the algorithms with more accurate data. These drawbacks of using this dataset should be kept in mind, and the potential impacts on the results obtained later in this study will be discussed further.
+
+\section{Our Solution}
+
+\subsection{Description of Dataset}
+The Breast Cancer Wisconsin dataset is sourced from kaggle.com. It contains 569 samples: 357 benign and 212 malignant samples. Each sample is identified by an ID number and categorized as either M for malignant or B for benign. Ten real-valued features are computed for each cell nucleus/ sample: 
+\begin{itemize}
+	\item Radius (mean of distances from center to points on the perimeter
+ 	\item Texture (standard deviation of gray scale values)
+  	\item Perimeter $p$
+   	\item Area $a$
+        \item Smoothness (local variation in radius lengths)
+        \item Compactness ($p^2 / a - 1.0$)
+        \item Concavity (severity of concave portions of the contour)
+        \item Concave Points (number of concave portions of the contour)
+	\item Symmetry
+ 	\item Fractal Dimension ("coastline approximation" - 1)
+\end{itemize}
+
+For each of the 10 feature above, the mean, standard error, and worst is calculated, totaling to 32 columns. Before applying machine learning algorithms to process this dataset and see how accurate each machine learning algorithm is at classifying a sample as benign or malignant, we first pre-processed the data. We read the csv file and got rid of the last column "Unnamed:32". We checked for NaN values, which apart for "Unnamed:32" column, this dataset did not have. After ensuring that the dataset contains only non-null values, we got rid of id column and separated the data into x (everything but diagnosis) and y (diagnosis). The data was then ready to be processed by our machine learning algorithms.
+
+The tables to the right include summary statistics for each of the features, separated by the categories (mean, standard error, and worst).
+
+\begin{table}[ht]
+    \centering
+    \caption{\\Summary Statistics for Feature Means}
+    $\begin{array}{ccc}
+         \hline
+         & Mean & Standard Deviation\\
+         \hline
+         Radius & 14.13 & 3.52\\
+         \hline
+         Texture & 19.29 & 4.30\\
+         \hline
+         Perimeter & 91.97 & 24.29\\
+         \hline
+         Area & 654.89 & 351.91\\
+         \hline
+         Smoothness & 0.09 & 0.01\\
+         \hline
+         Compactness & 0.10 & 0.05\\
+         \hline
+         Concavity & 0.09 & 0.08\\
+         \hline
+         Concave Points & 0.05 & 0.04\\
+         \hline
+         Symmetry & 0.18 & 0.03\\
+         \hline
+         Fractal Dimension & 0.06 & 0.01\\
+         \hline
+    \end{array}$
+    
+    \caption{\\Summary Statistics for Feature Standard Errors}
+    $\begin{array}{ccc}
+         \hline
+         & Mean & Standard Deviation\\
+         \hline
+         Radius & 0.41 & 0.28\\
+         \hline
+         Texture & 1.22 & 0.55\\
+         \hline
+         Perimeter & 2.87 & 2.02\\
+         \hline
+         Area & 40.34 & 45.49\\
+         \hline
+         Smoothness & 0.01 & 0.00\\
+         \hline
+         Compactness & 0.03 & 0.02\\
+         \hline
+         Concavity & 0.03 & 0.03\\
+         \hline
+         Concave Points & 0.01 & 0.01\\
+         \hline
+         Symmetry & 0.02 & 0.01\\
+         \hline
+         Fractal Dimension & 0.00 & 0.00\\
+         \hline
+    \end{array}$
+    
+    \caption{\\Summary Statistics for Feature Worst Values}
+    $\begin{array}{ccc}
+         \hline
+         & Mean & Standard Deviation\\
+         \hline
+         Radius & 16.27 & 4.83\\
+         \hline
+         Texture & 25.68 & 6.15\\
+         \hline
+         Perimeter & 107.26 & 33.60\\
+         \hline
+         Area & 880.58 & 569.36\\
+         \hline
+         Smoothness & 0.13 & 0.02\\
+         \hline
+         Compactness & 0.25 & 0.16\\
+         \hline
+         Concavity & 0.27 & 0.21\\
+         \hline
+         Concave Points & 0.11 & 0.07\\
+         \hline
+         Symmetry & 0.29 & 0.06\\
+         \hline
+         Fractal Dimension & 0.08 & 0.02\\
+         \hline
+    \end{array}$
+\end{table}
+
+\subsection{Machine Learning Algorithms}
+The six machine learning algorithms applied to the Breast Cancer Wisconsin Dataset are Decision Tree, Random Forest, k-Neural Network (kNN), Logistic Regression, Support Vector Machine (SVM), and Naive Bayes Classifier. In this section, we will explain each algorithm and debrief why we chose these six. 
+\begin{enumerate}
+\item Decision Tree : A Decision Tree is a non-parametric supervised learning algorithm that is used for both classification and regression tasks. It has a hierarchical, tree structure consisting of a root node, branches, internal nodes, and leaf nodes. Given an input sample, the root conducts evaluations using the given features, then decides which branch to move to next. The same thing happens in the following layer, whichever internal (decision) node the sample is moved to, until a leaf node is eventually reached with the final output decision. 
+\item Random Forest : This is a common machine learning algorithm that combines the output of multiple decision trees to reach a single result. This is an ensemble learning method, which is made up of a set of classifiers (in this case, decision trees) and their predictions are aggregated to identify the most popular result. Single decision trees can be prone to problems such as bias and overfitting, so utilizing multiple decision trees to form an ensemble leads to more accurate results, especially when the trees are uncorrelated with each other.
+\item k-Nearest Neighbors : kNN is a supervised learning classifier. It utilizes proximity to make classifications, or predictions about the grouping of an individual sample. Essentially, the algorithm looks at clusters, or data points that are 'close' to one another in value, and looks at their class labels. The overall labeling of the cluster will be dependent on the majority 'vote' (i.e. if most samples in a cluster are malignant, the cluster is labeled malignant). Samples that are then fed into the model after its training are then assessed on which cluster they are closest to, and the label of that cluster is assigned to that input sample.
+\item Logistic Regression : This is a type of statistical model often used for classification, as well as predictive analysis. From a given dataset, logistic regression estimates the probability of an event occurring. In this case, the two possible events are a given sample being malignant or benign. In this algorithm, a logit transformation is applied to the odds (i.e. the probability of 'success' divided by the probability of 'failure'), also known as log odds or the natural logarithm of odds. The logistic function is represented by the following formulas:
+\begin{center}
+    $\operatorname{Logit}(\pi) = \frac{1}{1+e^{-\pi}}$\\
+    $\operatorname{ln}(\frac{\pi}{1-\pi}) = \beta_0 + \beta_1*X_1 + ... + \beta_k*X_k$
+\end{center}
+Here, logit(pi) is the dependent variable, and X is the independent (each $X_k$ is a different feature). Each beta parameter (coefficient) is usually estimated through maximum likelihood estimation (MLE), which tests different values of beta through multiple iterations, optimizing for the best fit of log odds. Once optimal values are obtained, the resulting formula is intended to calculate and output a given sample's diagnosis.
+\item Support Vector Machine : SVM aims to find the optimal hyperplanes that would separate two classes of data, in our case benign vs. malignant cancer masses. The 2 types of samples may be separable by their features such as area of mass, perimeter, and more. The SVM algorithm models f(x) as \(f(x) = w^T*x + b\) by minimizing or maximizing the Lagrangian function (dual forms) to find the hyperplanes. The Lagrangian function in maximizing form is:
+\begin{center}
+    \(max L_D = \sum_{i=1}^{\l}a_i - 1/2\sum_{i=1}^{\l}\sum_{j=1}^{\l}a_i a_j y_i y_j(x_i^T \cdot x_j)\)
+\end{center}
+A kernel function is typically added in front of the dot product of the x to account for non-linear models. There many types of kernel functions, such as linear, polynomial, radial basis function (rbf), sigmoid, and precomputed. 
+\item Naive Bayes : Naive Bayes is a supervised machine learning algorithm that finds the probability of a hypothesis by computing the probability of the set of attributes given the hypothesis. Naive Bayes assumes that the attributes are independent of each other. In reality, this assumption is faulty, as the texture of a cancer mass can affect its smoothness, but to measure the lack of independence is rather difficult; hence, the "naive" in Naive Bayes. The Naive Bayes Classifier is described with the following formula: $c_{NB} = argmax_{c_{j} \in C} P(c_{j}) \prod_i P(a_i |C_j)$.  According to this formula, the likelihood of a class (hypothesis) is the maximum likelihood of the class multiplied to the product of the probability of an attribute given the class.
+\end{enumerate}
+
+\subsection{Implementation Details}
+In this section, we will describe how we implemented the 6 machine learning algorithms above. We will describe their performance and how we fine tuned their hyperparamters to get the best performance. 
+
+\begin{enumerate}
+     \item Decision Tree : The Decision Tree was implemented using the tree package of python's sklearn library. Decision Trees are not sensitive to outliers or normalization, so these techniques were not applied to the dataset. The data was pre-processed as described above (see {em Description of Dataset}). Then data was then further divided into an 80\% training and 20\% testing split.
+     The Decision Tree was first trained with a minimum samples split parameter of 10, and utilized the default Gini impurity criterion. The testing accuracy of this tree was about 95.61\%. The tree consisted included a root node dependent on the sample's mean concavity, 6 layers of internal nodes (14 decision nodes in total), and 16 leaf nodes.
+    
+    The next step was to prune the tree. Using the GridSearchCV method, it was determined that the optimal values for maximum leaf nodes and minimum samples split were 15 and 3, respectively. The pruned tree then had an accuracy of 96.49\%, slightly improved from the original tree. This one consisted of a root dependent upon the sample's worst perimeter value, 5 layers of internal nodes (13 decision nodes total), and 15 leaf nodes.
+
+    \item Random Forest : (to be implemented after mid-stage report)
+
+    \item Logistic Regression : The activation function utilized for the logistic regression was the sigmoid function, which mapped any real value between 0 and 1. The '.fit' method was used to train the logistic regression model, and the 'predict' method was used to make predictions on the new data. The accuracy of the model was about 96.5\% overall. Other statistics for benign (B) and malignant (M) samples in the testing data from the confusion matrix are in the Table 4 on the last page. Table 5 includes the coefficients and intercept calculated by the algorithm.
+    
+    \item k-Nearest Neighbors : (to be implemented after mid-stage report)
+
+    \item Support Vector Machine : The Support Vector Machine was implemented using the package {\em svm} from python sklearn library. The function, Support Vector Classifier, was used as the model for fitting the training data (0.8 of dataset) and predicting the test data (0.2 of dataset). Using the SVC model with its default parameters, the accuracy score was 0.98, the precision of predicting benign samples was 0.99, and the precision of predicting malignant samples was 0.98. There was only 1 FP for benign and 1 FN for malignant. 
+	
+    To test if this was the optimal performance by the SVC model, this performance was tested against using GridSearchCV to find optimal values for the SVM parameters - C, gamma, and kernel function. The C value is the penalty parameter. A smaller C results in wider margin but more misclassified examples. A larger C results in smaller margin and less misclassified examples, but more overfitting. We want a C value that does not under- nor over-fit. Gamma is a coefficient in the Kernel function (rbf, polynomial, and sigmoid) and is the inverse of the radius of influence. If gamma is too small, the model does not copture the shape of data. The Kernel function used was 'rbf' because it is the most preferrable, as it is flexible and captures shape of data. Radial basis function (rbf) is used over linear, polynomial, and others. Hence, a range of C and gamma was applied with the Kernel function 'rbf' to GridSearchCV(). 
+	
+    The optimal values for the parameters found through GridSearchCV were 10 for C, 1 for gamma, and 'rbf' for Kernel function. This new model was used to fit the training data and predict the test data. The performance of the new SVC model had a precision of 0.99 for predicting benign samples and 0.98 for predicting malignant samples. This result was the same as using the default values for Support Vector Classifier. 
+
+    \item Naive Bayes : Naive Bayes was implemented using the Gaussian Naive Bayes package from python sklearn library. The Gaussian Naive Bayes was used for its mean and variance approach for training the data. The result of using Gaussian Naive Bayes with default parameters was an accuracy score of 0.90, a precision of detecting benign cancer of 0.93 and a precision of detecting malignant cancer of 0.86.
+    
+    Gaussian Naive Bayes only have 2 parameters: priors (prior probabilities) and var_smoothing (to widen or smooth the curve). The result of using GridSearchCV() and fine tuning var_smoothing is a 0.92 precision of predicting benign cancer and a 0.90 precision of predicting malignant cancer masses. The new model had the same accuracy score of 0.90 as the Naive Bayes model with default values, but better precision of predicting malignant cancer masses. 
+
+\end{enumerate}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{Latext-Template/bib}
+
+\begin{table}[]
+        \centering
+        \caption{Classification Report for Testing Data}
+        \begin{tabular}{|c|c|c|c|}
+             \hline
+             & Precision & Recall & F1-Score\\
+             \hline
+             B & 96\% & 99\% & 97\%\\
+             \hline
+             M & 98\% & 93\% & 95\%\\
+             \hline
+        \end{tabular}
+
+       \caption{Intercept and Coefficients for Each Feature}
+        \begin{tabular}{|c|c|}
+	     \hline
+             Intercept & -0.37\\
+             \hline
+             Mean Radius & -1.91\\
+             \hline
+             Mean Texture & -0.47\\
+             \hline
+             Mean Perimeter & 0\\
+             \hline
+             Mean Area & 0\\
+             \hline
+             Mean Smoothness & 0.08\\
+             \hline
+             Mean Compactness & 0.35\\
+             \hline
+             Mean Concavity & 0.49\\
+             \hline
+             Mean Concave Points & 0.21\\
+             \hline
+             Mean Symmetry & 0.11\\
+             \hline
+             Mean Fractal Dimension & 0.02\\
+             \hline
+             SE Radius & -0.06\\
+             \hline
+             SE Texture & -0.89\\
+             \hline
+             SE Perimeter & -0.09\\
+             \hline
+             SE Area & 0.14\\
+             \hline
+             SE Smoothness & 0.01\\
+             \hline
+             SE Compactness & 0.07\\
+             \hline
+             SE Concavity & 0.09\\
+             \hline
+             SE Concave Points & 0.03\\
+             \hline
+             SE Symmetry & 0.03\\
+             \hline
+             SE Fractal Dimension & 0.01\\
+             \hline
+             Worst Radius & -1.99\\
+             \hline
+             Worst Texture & 0.64\\
+             \hline
+             Worst Perimeter & 0.19\\
+             \hline
+             Worst Area & 0.03\\
+             \hline
+             Worst Smoothness & 0.13\\
+             \hline
+             Worst Compactness & 1.06\\
+             \hline
+             Worst Concavity & 1.32\\
+             \hline
+             Worst Concave Points & 0.39\\
+             \hline
+             Worst Symmetry & 0.36\\
+             \hline
+             Worst Fractal Dimension & 0.09\\
+             \hline
+        \end{tabular}
+    \end{table}
+
+\end{document}
