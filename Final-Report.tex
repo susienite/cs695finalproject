@@ -217,7 +217,7 @@ A kernel function is typically added in front of the dot product of the x to acc
 \end{enumerate}
 
 \subsection{Implementation Details}
-In this section, we will describe how we implemented the 6 machine learning algorithms above. We will describe their performance and how we fine tuned their hyperparamters to get the best performance. 
+In this section, we will describe how we implemented the 6 machine learning algorithms above. We will describe their performance and how we fine tuned their hyperparameters to get the best performance. 
 
 \begin{enumerate}
      \item Decision Tree : The Decision Tree was implemented using the tree package of Python's sklearn library. Decision Trees are not sensitive to outliers or normalization, so these techniques were not applied to the dataset. The data was preprocessed (see {\em Decription of Dataset})  then was further divided into an 80\% training and 20\% testing split.
@@ -254,7 +254,9 @@ In this section, we will describe how we implemented the 6 machine learning algo
 
     \item Logistic Regression : The activation function utilized for the logistic regression was the sigmoid function, which mapped any real value between 0 and 1. The '.fit' method was used to train the logistic regression model, and the 'predict' method was used to make predictions on the new data. The accuracy of the model was about 96.5\% overall. Other statistics for benign (B) and malignant (M) samples in the testing data from the confusion matrix are in the Table 4 on the last page. Table 5 includes the coefficients and intercept calculated by the algorithm.
     
-    \item k-Nearest Neighbors : (to be implemented after mid-stage report)
+    \item k-Nearest Neighbors : The initial kNN model was fitted with a $k$ value of 5 - i.e. 5 neighbors. This algorithm output an accuracy of 95.61\%, with a malignant precision of 93\%, and a benign precision of 100\%. The main way this model's performance can be improved is by determining the optimal value of $k$. For this, we plotted misclassification error against the number of neighbors $k$, then utilized the $k$ value that had the lowest misclassification error. From this, we found that the optimal value of $k$ was 13.
+
+    The optimized kNN model output an accuracy of 97.39\%. Malignant precision as improved to 96\%\%, and benign precision remained the same at 100\%.
 
     \item Support Vector Machine : The Support Vector Machine was implemented using the package {\em svm} from python sklearn library. The function, Support Vector Classifier, was used as the model for fitting the training data (0.8 of dataset) and predicting the test data (0.2 of dataset). Using the SVC model with its default parameters, the accuracy score was 0.98, the precision of predicting benign samples was 0.97, and the precision of predicting malignant samples was 1.00. There was only 1 FP for benign and 1 FN for malignant. 
 	
@@ -275,19 +277,23 @@ In this section, we will describe how we implemented the 6 machine learning algo
 
 \end{enumerate}
 
-%/ COMMENT: These are the remaining sections that need to be done, in addition to adding the implementation details for our 2nd algorithms.
 \section{Comparison}  
 Six machine learning algorithms - Decision Tree, Random Forest, Logistic Regression, k-Nearest Neighbors, Support Vector Machine, and Naive Bayes - were applied on the Wisconsin Breast Cancer Dataset. The algorithm that performed the best was Support Vector Machine at 98\% accuracy and the algorithm that performed the worst was Naive Bayes at 90\%. However, it should noted that all algorithms performed at or above 90\% before and after fine-tuning techniques. The fine-tuning techniques were GridSearchCV to find optimal values for parameters for Decision Tree, Support Vector Machine, and Naive Bayes, feature selection for Random Forest, regularization to minimize overfitting for Logistic Regression, and changing the k-value for k-Nearest Neighbors. After fine-tuning the algorithms, the accuracy and precisions for all 6 algorithms either stayed the same or improved from their original values. For example, Random Forest improved from an accuracy of 91\% to 95\% after fine-tuning and its precision for predicting benign cancer samples improved from 77\% to 84\%. The results after fine-tuning showed many algorithms predicting malignant cancer at 100\%  such as Decision Tree, Random Forest, and Support Machine Vector. 
 
 According to our related works, a study in 2021 \textit{Machine Learning Algorithms For Breast Cancer Prediction and Diagnosis}, who performed 5 out of 6 algorithms (Naive Bayes was excluded) on the Wisconsin Breast Cancer Dataset, found that Support Vector Machine outperformed the other algorithms at an accuracy of 97\%. Another study, \textit{Diagnosis of Breast Cancer Using Random Forests}, reported that Random Forest did the best, but noted that Support Vector Machine did the second best. Our study showed Support Vector Machine performing at an accuracy of 98\%. The reason Support Vector Machine perform so exceedingly well on this classification problem is due to how SVM creates hyperplanes for the boundaries of 2 clusters before finding an optimal hyperplane that is the maximum distance between the two. Our study showed that Naive Bayes performed the worst out of the algorithms at 90\%, but our related work studies above did not apply Naive Bayes. In all, Support Vector Machine was supported by other works in performing exceedingly well on the Wisconsin Breast Cancer Dataset. 
 
 \section{Future Directions}
-This section lays out some potential directions for further improving the performance. You can image what you may do if you were given extra 3-6 months.
+As shown in the Related Work section, there are several studies that have already been conducted using this dataset. It is a relatively popular dataset for classification problems, and as such, many researchers have attempted to find the best algorithm and its optimal parameters to solve this problem. As such, there are clearly several ways these performances could be improved.
+
+For example, there are cost-sensitive algorithms. These models essentially apply a greater penalty on incorrect predictions during training in order to improve testing accuracy. Since this is a medical dataset, and its results can have great implications for how breast cancer research can be conducted in the future, it may be worthwhile to utilize a cost-sensitive algorithm to improve the model's accuracy. 
+
+Another area of algorithms that could explored those in deep learning, such as CNN or ANN architectures. Our kNN algorithm was tied for second best performance with the Decision Tree algorithm, at an accuracy of about 97\% after fine-tuning. Other studies have shown that deep learning seems to perform quite well for this problem.
+
+It is worth noting that the dataset is a bit uneven, in the sense that there are more benign samples than malignant ones. The models we implemented could be noticing the greater number of benign samples and utilizing that assignment as a 'default', in a sense. This could explain why many of the algorithms experience a greater benign precision than malignant, and perhaps resulting in a greater false negative rate (when considering benign $= 0$). To combat this issue, other sampling methods could be explored, such as over- and under-sampling, in order to better balance the distribution of the training and testing sets.
 
 \section{Conclusion}
-This section summarizes this project, i.e., by the extensive experiments and analysis, do you think the problem is solved well? which algorithm(s) might be better suitable for this problem? Which technique(s) may help further improve the performance? \\
+In short, the algorithms we implemented all performed quite well, with SVM having the best performance at about 98\% accuracy, and Naive Bayes performing the worst at 90\% accuracy, after fine-tuning. Two tables can be found on the last page of this report detailing the accuracies and class precisions of each algorithm, both before and after fine-tuning. We believe that the problem is solved quite well by these algorithms as a result, and would likely recommend SVM for future problems similar to this one. The second-best performing algorithms, Decision Tree and kNN, would also be excellent choices. However, it would be worthwhile to explore other algorithms, such as those in the field of deep learning, or cost-sensitive algorithms. There are many ways to skin a cat, after all. Plus, datasets such as this one, with an unequal number of samples in each class, may need to be sampled differently in order to balance the distribution.
 
-Last but not the least, don't forget to include references to any work you mentioned in the report.
 
 \newpage
 
@@ -379,13 +385,13 @@ Last but not the least, don't forget to include references to any work you menti
         \hline
         & Accuracy & Precision (B) & Precision (M)\\
         \hline
-        Decision Tree & 96 & 95 & 97 \\
+        Decision Tree & 96 & 97 & 95 \\
         \hline
-        Random Forest & 91 & 77 & 100\\
+        Random Forest & 91 & 100 & 77\\
         \hline
         Logistic Regression & 95 & 95 & 97 \\
         \hline
-        k-Nearest Neighbors & 93 & 93 & 93\\
+        k-Nearest Neighbors & 96 & 100 & 93\\
         \hline
         Support Vector Machine & 98 & 97 & 100 \\
         \hline
@@ -397,13 +403,13 @@ Last but not the least, don't forget to include references to any work you menti
         \hline
         & Accuracy & Precision (B) & Precision (M)\\
         \hline
-        Decision Tree & 97 & 97 & 100 \\
+        Decision Tree & 97 & 100 & 97 \\
         \hline
-        Random Forest & 95 & 84 & 100\\
+        Random Forest & 95 & 100 & 84\\
         \hline
         Logistic Regression & 95 & 95 & 97 \\
         \hline
-        k-Nearest Neighbors & 95 & 100 & 96\\
+        k-Nearest Neighbors & 97 & 100 & 96\\
         \hline
         Support Vector Machine & 98 & 97 & 100 \\
         \hline
